@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Services - Restaurant Healthy à Niamey</title>
+    <style>
+        /* Variables et reset */
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #F8F0E3;
+            --accent-color: #E67E22;
+            --text-color: #333;
+            --light-text: #fff;
+            --gray-light: #f5f5f5;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light-text);
+            padding: 0 1rem;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: #d35400;
+        }
+        
+        /* Menu Section */
+        .section-title {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+        
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .category-btn {
+            background-color: white;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .item-content {
+            padding: 1.5rem;
+        }
+        
+        .item-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .item-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 0.7rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #1f6e4a;
+        }
+        
+        /* Menu Gallery Section */
+        .menu-gallery {
+            background-color: white;
+            padding: 4rem 1rem;
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: white;
+            padding: 4rem 1rem;
+            margin: 4rem 0;
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 4rem 1rem;
+            background-color: var(--gray-light);
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .contact-info h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+        
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-details p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .map iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .cart-modal.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 1rem;
+        }
+        
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+        
+        .cart-item-price {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background-color: #eee;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .quantity {
+            margin: 0 0.5rem;
+        }
+        
+        .remove-item {
+            color: #ff6b6b;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #d35400;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 3rem 1rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            margin-bottom: 0.8rem;
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .cart-modal {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNiAxM2wzLjU1IDMuNWEyIDIgMCAwMDIuOSAwTDE4IDciPjwvcGF0aD48cGF0aCBkPSJNMTIgN2w3LjM4IDcuMzRhMiAyIDAgMDEwIDIuODJjLS43OC43OC0yLjA0Ljc4LTIuODIgMEw5IDkiPjwvcGF0aD48cGF0aCBkPSJNOSAxM2wzLjU1IDMuNWEyIDIgMCAwMDIuOSAwTDIxIDciPjwvcGF0aD48cGF0aCBkPSJNMyAzbDE4IDE4Ij48L3BhdGg+PC9zdmc+" alt="Healthy Services Logo">
+                Healthy Services
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#gallery">Notre Carte</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="cart-icon" id="cart-icon">
+                        🛒 <span class="cart-count">0</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <h1>Healthy Services</h1>
+            <p>Découvrez une cuisine saine et délicieuse au cœur du quartier Francophonie à Niamey. Des plats préparés avec des ingrédients frais et locaux pour votre bien-être.</p>
+            <a href="#menu" class="btn">Voir le menu</a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <h2 class="section-title">Notre Menu</h2>
+        <div class="menu-container">
+            <div class="categories">
+                <button class="category-btn active" data-category="all">Tous</button>
+                <button class="category-btn" data-category="breakfast">Petit-déjeuner</button>
+                <button class="category-btn" data-category="lunch">Déjeuner</button>
+                <button class="category-btn" data-category="dinner">Dîner</button>
+                <button class="category-btn" data-category="drinks">Boissons</button>
+            </div>
+            
+            <div class="menu-items">
+                <!-- Les éléments du menu seront générés dynamiquement par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Gallery Section -->
+    <section class="menu-gallery" id="gallery">
+        <h2 class="section-title">Notre Carte</h2>
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgNjAwIDgwMCI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI4MDAiIGZpbGw9IiNmNWY1ZjUiLz48dGV4dCB4PSIzMDAiIHk9IjM1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMzMzIj5NZW51IEhlYWx0aHkgU2VydmljZXM8L3RleHQ+PHRleHQgeD0iMzAwIiB5PSI0MDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzY2NiI+UXVhcnRpZXIgRnJhbmNvcGhvbmllLCBOaWFtZXk8L3RleHQ+PC9zdmc+" alt="Menu Healthy Services 1">
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgNjAwIDgwMCI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI4MDAiIGZpbGw9IiNlOGYyZWMiLz48dGV4dCB4PSIzMDAiIHk9IjM1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMzMzIj5IZWFsdGh5IFNlcnZpY2VzPC90ZXh0Pjx0ZXh0IHg9IjMwMCIgeT0iNDAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2NjYiPkzDqWzDqWdhbmNlIGN1bGluYWlyZSBhdSBjb311ciBkZSBOaWFtZXkhPC90ZXh0Pjwvc3ZnPg==" alt="Menu Healthy Services 2">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant Healthy Services">
+            </div>
+            <div class="about-content">
+                <h2>Notre Histoire</h2>
+                <p>Fondé en 2020, Healthy Services est né de la passion pour une alimentation saine et équilibrée. Notre restaurant situé au quartier Francophonie de Niamey vous propose des plats savoureux préparés avec des ingrédients frais et locaux.</p>
+                <p>Notre chef et son équipe créent chaque jour des recettes innovantes qui raviront vos papilles tout en prenant soin de votre santé.</p>
+                <p>Nous nous engageons à soutenir les producteurs locaux et à minimiser notre impact environnemental grâce à des pratiques durables.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Contactez-nous</h2>
+                <div class="contact-details">
+                    <p>📍 Quartier Francophonie, Niamey, Niger</p>
+                    <p>📞 +227 81 43 04 42</p>
+                    <p>📞 +227 86 66 06 68</p>
+                    <p>📞 +227 93 86 18 18</p>
+                    <p>📞 +227 97 67 17 98</p>
+                    <p>✉️ contact@healthyservices.ne</p>
+                    <p>🕒 Ouvert du lundi au dimanche de 8h à 22h</p>
+                </div>
+                <p>Commandez en ligne ou passez nous voir pour savourer nos délicieux plats healthy!</p>
+            </div>
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127438.2743758337!2d2.0527125499999997!3d13.51215545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11d04e9a0ddb3e9b%3A0x4c95cbf5c0b1f3b3!2sNiamey%2C%20Niger!5e0!3m2!1sfr!2sfr!4v1642000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h2>Votre Panier</h2>
+            <button class="close-cart" id="close-cart">×</button>
+        </div>
+        <div class="cart-items">
+            <!-- Les articles du panier seront générés dynamiquement -->
+        </div>
+        <div class="cart-total">
+            Total: <span id="cart-total">0</span> FCFA
+        </div>
+        <button class="checkout-btn">Commander</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Healthy Services</h3>
+                <p>Là où le Raffinement rencontre la tradition! L'élégance culinaire au cœur de Niamey!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <a href="#accueil">Accueil</a>
+                <a href="#menu">Menu</a>
+                <a href="#gallery">Notre Carte</a>
+                <a href="#about">À propos</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Quartier Francophonie, Niamey</p>
+                <p>+227 81 43 04 42</p>
+                <p>+227 86 66 06 68</p>
+                <p>+227 93 86 18 18</p>
+                <p>+227 97 67 17 98</p>
+                <p>contact@healthyservices.ne</p>
+            </div>
+            <div class="footer-section">
+                <h3>Suivez-nous</h3>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Healthy Services. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Données des produits
+        const menuItems = [
+            {
+                id: 1,
+                name: "Salade Nigerienne",
+                description: "Salade fraîche avec légumes locaux, avocat et vinaigrette maison",
+                price: 3500,
+                category: "lunch",
+                image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 2,
+                name: "Atiéké",
+                description: "Atiéké, poisson grillé, tomates et oignons frais",
+                price: 4500,
+                category: "lunch",
+                image: "https://images.unsplash.com/photo-1599242360376-2d8c18513f5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 3,
+                name: "Smoothie Detox",
+                description: "Mangue, ananas, gingembre et menthe fraîche",
+                price: 2500,
+                category: "drinks",
+                image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
+            },
+            {
+                id: 4,
+                name: "Poulet Yassa",
+                description: "Poulet mariné au citron et oignons, servi avec du riz basmati",
+                price: 5000,
+                category: "dinner",
+                image: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 5,
+                name: "Omelette Healthy",
+                description: "Omelette aux légumes frais et fromage de chèvre, pain complet",
+                price: 3000,
+                category: "breakfast",
+                image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 6,
+                name: "Thé à la menthe",
+                description: "Thé vert traditionnel à la menthe fraîche",
+                price: 1500,
+                category: "drinks",
+                image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            }
+        ];
+
+        // Panier
+        let cart = [];
+        const cartIcon = document.getElementById('cart-icon');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCart = document.getElementById('close-cart');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const cartTotalElement = document.getElementById('cart-total');
+        const cartCountElement = document.querySelector('.cart-count');
+        const menuItemsContainer = document.querySelector('.menu-items');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+
+        // Afficher les éléments du menu
+        function displayMenuItems(category = 'all') {
+            menuItemsContainer.innerHTML = '';
+            
+            const filteredItems = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+            
+            filteredItems.forEach(item => {
+                const menuItemElement = document.createElement('div');
+                menuItemElement.classList.add('menu-item');
+                menuItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-content">
+                        <h3 class="item-title">${item.name}</h3>
+                        <p class="item-description">${item.description}</p>
+                        <p class="item-price">${item.price} FCFA</p>
+                        <button class="add-to-cart" data-id="${item.id}">Ajouter au panier</button>
+                    </div>
+                `;
+                menuItemsContainer.appendChild(menuItemElement);
+            });
+            
+            // Ajouter des écouteurs d'événements aux boutons "Ajouter au panier"
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.getAttribute('data-id'));
+                    addToCart(itemId);
+                });
+            });
+        }
+
+        // Ajouter un article au panier
+        function addToCart(itemId) {
+            const item = menuItems.find(menuItem => menuItem.id === itemId);
+            const existingItem = cart.find(cartItem => cartItem.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+            
+            updateCart();
+            showNotification(`${item.name} ajouté au panier!`);
+        }
+
+        // Mettre à jour le panier
+        function updateCart() {
+            // Mettre à jour le compteur du panier
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+            
+            // Mettre à jour les articles du panier
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.classList.add('cart-item');
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title">${item.name}</h3>
+                        <p class="cart-item-price">${item.price} FCFA x ${item.quantity}</p>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                            <button class="remove-item" data-id="${item.id}">Supprimer</button>
+                        </div>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            // Mettre à jour le total
+            cartTotalElement.textContent = total;
+            
+            // Ajouter des écouteurs d'événements aux boutons de quantité
+            document.querySelectorAll('.quantity-btn.minus').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.getAttribute('data-id'));
+                    updateQuantity(itemId, -1);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.plus').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.getAttribute('data-id'));
+                    updateQuantity(itemId, 1);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.getAttribute('data-id'));
+                    removeFromCart(itemId);
+                });
+            });
+        }
+
+        // Mettre à jour la quantité d'un article
+        function updateQuantity(itemId, change) {
+            const item = cart.find(item => item.id === itemId);
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        // Supprimer un article du panier
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+        }
+
+        // Afficher une notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.backgroundColor = 'var(--accent-color)';
+            notification.style.color = 'white';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '5px';
+            notification.style.zIndex = '1000';
+            notification.style.boxShadow = 'var(--shadow)';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 2000);
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Afficher tous les éléments du menu au chargement
+            displayMenuItems();
+            
+            // Gestion des catégories
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const category = button.getAttribute('data-category');
+                    displayMenuItems(category);
+                });
+            });
+            
+            // Ouvrir le panier
+            cartIcon.addEventListener('click', () => {
+                cartModal.classList.add('open');
+            });
+            
+            // Fermer le panier
+            closeCart.addEventListener('click', () => {
+                cartModal.classList.remove('open');
+            });
+            
+            // Commander
+            document.querySelector('.checkout-btn').addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert('Votre panier est vide!');
+                    return;
+                }
+                
+                alert('Merci pour votre commande! Elle sera préparée rapidement.');
+                cart = [];
+                updateCart();
+                cartModal.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
